@@ -1,0 +1,109 @@
+
+{% extends 'layout/base.html' %}
+
+{% load static %}
+{% block main %}
+
+	<div class="container mt-4 p-4">
+        <div class="row ">
+            <div class="col-4"></div>
+            <div class="col-4 mx-auto ">
+                <form method="POST" class="form-login">
+                    {% csrf_token %}
+                    <p>{{ next }}</p>
+                    <div class="title text-center">Login</div>
+                    <div class="form-outline mt-5">
+                        <input class="form-control email" name="email" type="email" placeholder="email" />
+                    </div>
+                    <div class="form-outline mt-2">
+                        <input class="form-control password" type="password" name="password" placeholder="password" />
+                    </div>
+                    <input class="next form-field hidden" hidden type="text" name="next" value="{{ next }}" />
+                    <div class="mt-2">
+                        <p class="message-form small"></p>
+                    </div>
+                    <div class="cover-btn-login mt-2 d-flex justify-content-end">
+                        <button class="btn-login btn btn-primary" type="button">Submit</button>
+                    </div>
+                    <div>
+                        <a class="small link-register mt-2" href="/register/">Register an account</a>
+                    </div>
+                </form>
+            </div>
+            <div class="col-4"></div>
+        </div>
+    </div>
+
+{% endblock %}
+
+{% block js %}
+    <script>
+        /*==================================================================
+        [ login ]*/
+        $('.btn-login').on('click', function (e) {
+            e.preventDefault();
+            let email = $('.email').val();
+            let password = $('.password').val();
+            {#let csrftoken = $.cookie('csrftoken');#}
+            let csrftoken = $('input[name="csrfmiddlewaretoken"]').val();
+            let next = $('.next').val();
+            let messageEle = $('.message-form');
+            if (!email) {
+                messageEle.text('* Please enter value for email fields');
+                return;
+            }
+            if (!password) {
+                messageEle.text('* Please enter value for password fields');
+                return;
+            }
+            $.ajax({
+                type: 'POST',
+                url: 'http://127.0.0.1:8000/login/',
+                dataType: 'json',
+                headers: {'X-CSRFToken': csrftoken},
+                mode: 'same-origin',
+                data: {
+                    'email': email,
+                    'password': password,
+                    'next': next
+                },
+                success: function (result) {
+                    if (result.code === 200, result.status === 'success') {
+                        let next = '';
+                        if (result.username) {
+                            localStorage.setItem('username', result.username);
+                            $('.username').text(result.username);
+                            let user = $('.user');
+                            let login = $('.login');
+                            login.addClass('hide');
+                            user.removeClass('hide');
+                        }
+                        if (result.num_cart) {
+                            localStorage.setItem('num-cart', result.num_cart);
+                            $('.js-show-cart').attr('data-notify', result.num_cart);
+                        }
+                        if (result.num_wish) {
+                            localStorage.setItem('num-wish', result.num_wish);
+                            $('.js-show-wish').attr('data-notify', result.num_wish);
+                        }
+                        if (result.next) {
+                            next = result.next;
+                        }
+                        window.location.href = `http://127.0.0.1:8000/${next}`;
+                    }
+                    if (result.code !== 200 && result.status === 'error') {
+                        messageEle.text(result.message);
+                    }
+                },
+                error: function (error, status) {
+                    if (error.message) {
+                        $('.message-info').text(error.message);
+                    } else {
+                        $('.message-info').text('sorry, error in progress checkout!');
+                    }
+                }
+            });
+        });
+    </script>
+
+{% endblock js %}

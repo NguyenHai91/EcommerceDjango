@@ -1,0 +1,85 @@
+
+{% extends 'layout/base.html' %}
+
+{% load static %}
+{% block main %}
+	<!-- breadcrumb -->
+	<div class="container">
+		<div class="bread-crumb flex-w p-l-25 p-r-15 p-t-30 p-lr-0-lg">
+			<a href="/" class="stext-109 cl8 hov-cl1 trans-04">
+				Home
+				<i class="fa fa-angle-right m-l-9 m-r-10" aria-hidden="true"></i>
+			</a>
+			<span class="stext-109 cl4">
+				Wishlist
+			</span>
+		</div>
+	</div>
+
+	<!-- Shoping Cart -->
+	<form class="bg0 p-t-75 p-b-85">
+		<div class="container">
+			<div class="row">
+				<div class="col-lg-10 col-xl-7 m-lr-auto m-b-50">
+					<div class="m-l-25 m-r--38 m-lr-0-xl">
+						<div class="wrap-table-shopping-cart">
+							<table class="table-shopping-cart">
+								<tr class="table_head">
+									<th class="column-1">Product</th>
+									<th class="column-2"></th>
+									<th class="column-3">Price</th>
+                                    <th class="column-3"></th>
+								</tr>
+								{% if items_wish|length > 0 %}
+								{% for item in items_wish %}
+								<tr class="table_row item-{{ item.id }}" data-item="{{ item.id }}">
+									<td class="column-1">
+										<div class="how-itemcart1">
+											<img src='/{{ item.product.image }}' alt="IMG">
+										</div>
+									</td>
+									<td class="column-2"><a href="/product/detail/id={{ item.product.id }}/">{{ item.product.title }}</a></td>
+									<td class="column-3">$ {{ item.product.price }}</td>
+                                    <td class="delete-item-wish column-3" data-item="{{ item.id }}"><a href="#">
+                                        <i class="fa fa-trash-o ml-4 fa-lg" aria-hidden="true"></i>
+                                    </a></td>
+								</tr>
+								{% endfor %}
+								{% endif %}
+
+							</table>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</form>
+		
+	{% endblock %}
+
+    {% block js %}
+    <script>
+        /*==================================================================
+        [ delete item in wish ]*/
+        $('.delete-item-wish').on('click', function (e) {
+            e.preventDefault();
+            let id_item = $(this).attr('data-item');
+            let csrftoken = $.cookie('csrftoken');
+            $.ajax({
+                url: `http://127.0.0.1:8000/wish/delete/id=${id_item}/`,
+                type: 'DELETE',
+                dataType: 'json',
+                crossDomain: true,
+                headers: {'X-CSRFToken': csrftoken},
+                success: function (result) {
+                    if (result.code === 200) {
+                        let item_row = '.item-' + id_item;
+                        $(item_row).remove();
+                        $('.js-show-wish').attr('data-notify', result.num_wish);
+                        localStorage.setItem('num-wish', result.num_wish);
+                    }
+                }
+            });
+        });
+    </script>
+    {% endblock js %}

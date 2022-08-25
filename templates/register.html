@@ -1,0 +1,177 @@
+
+{% extends 'layout/base.html' %}
+
+{% load static %}
+{% block main %}
+
+	<div class=" row">
+        <div class="col-4"></div>
+        <div class="p-2 col-4">
+            <form method="POST" class="form-register">
+                {% csrf_token %}
+                <div>
+                    <p class="title text-center">Register Account</p>
+                </div>
+                <div class="form-outline mt-2">
+                    <input class="form-control first-name" id="first-name" type="text" name="first-name" placeholder="first name" />
+                </div>
+                <div class="form-outline mt-2">
+                    <input class="form-control last-name" type="text" name="last-name" placeholder="last name" />
+                </div>
+                <div class="form-outline mt-2">
+                    <input class="form-control email" type="email" name="email" placeholder="email" />
+                </div>
+                <div class="form-outline mt-2">
+                    <input class="form-control phone" type="phone" name="phone" placeholder="phone" />
+                </div>
+                <div class="form-outline mt-2">
+                    <div class="form-control">
+                        <label>Birth:</label>
+                        <input class="form-control birth" type="date" name="birth" />
+                    </div>
+                </div>
+                <div class="form-outline mt-2">
+                    <div class="form-control">
+                        <label>Gender</label>
+                        <select class="form-control  select-gender">
+                            <option value="0">Male</option>
+                            <option value="1">Female</option>
+                            <option value="2">Undefined</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-outline mt-2">
+                    <div class="form-control">
+                        <label>Avatar</label>
+                        <input class="form-control avatar" type="file" name="avatar" placeholder="avatar" />
+                    </div>
+                </div>
+                <div class="form-outline mt-2">
+                    <input class="form-control city" type="text" name="city" placeholder="city" />
+                </div>
+                <div class="form-outline mt-2">
+                    <input class="form-control address" type="text" name="address" placeholder="address" />
+                </div>
+                <div class="form-outline mt-2">
+                    <input class="form-control password" type="password" name="password" placeholder="password" />
+                </div>
+                <div class="form-outline mt-2">
+                    <input class="form-control re-password" type="password" name="re-password" placeholder="re-password" />
+                </div>
+                <div class="form-check d-flex justify-content-between mt-3">
+                    <input class="form-check-input ml-2" type="checkbox" name="terms" id="terms" />
+                    <label class="form-check-label ml-2" for="terms">
+                      I agree all statements in <a href="#!">Terms of service</a>
+                    </label>
+                </div>
+                <div>
+                    <p class="message-form small"></p>
+                </div>
+                <div class="cover-btn-register mt-2 d-flex justify-content-end">
+                    <button class="btn-register btn btn-primary" type="button">Submit</button>
+                </div>
+                <div class="mt-2">
+                    <a class="link-login small" href="/login/">Have an account</a>
+                </div>
+            </form>
+        </div>
+        <div class="col-4"></div>
+    </div>
+
+
+	{% endblock %}
+
+{% block js %}
+    <script>
+        $('.btn-register').on('click', function (e) {
+            e.preventDefault();
+            let firstName = $('.first-name').val();
+            let lastName = $('.last-name').val();
+            let email = $('.email').val();
+            let birth = $('.birth').val();
+            let gender = $('.select-gender').val();
+
+            let city = $('.city').val();
+            let address = $('.address').val();
+            let phone = $('.phone').val();
+            let password = $('.password').val();
+            let rePassword = $('.re-password').val();
+            let terms = $('input[name="terms"]').is(':checked');
+            let csrftoken = $('input[name="csrfmiddlewaretoken"]').val();
+            let message = $('.message-form');
+            let fileReader = new FileReader();
+            let avatar = $('.avatar').get(0).files[0];
+
+            if (!firstName) {
+                message.text('* First name is not empty!');
+                return;
+            }
+            if (!lastName) {
+                message.text('* Last name is not empty!');
+                return;
+            }
+            if (!email) {
+                message.text('* Email is not empty!');
+                return;
+            }
+            if (!password) {
+                message.text('* Password is not empty!');
+                return;
+            }
+            if (!rePassword) {
+                message.text('* Re-password is not empty!');
+                return;
+            }
+            if (rePassword !== password) {
+                message.text('Re-password is different password!');
+                return;
+            }
+            if (!birth) {
+                message.text('Birth is not empty!');
+                return;
+            }
+            if (!gender) {
+                message.text('Please choose your gender!');
+                return;
+            }
+            if (!terms) {
+                message.text('You must accept terms services!');
+                return;
+            }
+            let formData = new FormData();
+            formData.append('first_name', firstName);
+            formData.append('last_name', lastName);
+            formData.append('email', email);
+            formData.append('birth', birth);
+            formData.append('gender', gender);
+            formData.append('avatar', avatar);
+            formData.append('phone', phone);
+            formData.append('city', city);
+            formData.append('address', address);
+            formData.append('password', password);
+            formData.append('re-password', rePassword);
+
+            $.ajax({
+                type: 'POST',
+                url: 'http://127.0.0.1:8000/register/',
+                dataType: 'json',
+                mimeType: 'multipart/form-data',
+                contentType: false,
+                processData: false,
+                crossDomain: true,
+                headers: {'X-CSRFToken': csrftoken},
+                data: formData,
+                success: function (result) {
+                    if (result.code === 200 && result.status === 'success') {
+                        window.location.href = 'http://127.0.0.1:8000/login/';
+                        return;
+                    }
+                    if (result.code !== 200 && result.status === 'error') {
+                        message.text(result.message);
+                        return;
+                    }
+                }
+            });
+        });
+    </script>
+{% endblock %}

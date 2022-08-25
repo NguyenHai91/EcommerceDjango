@@ -1,0 +1,146 @@
+
+{% extends 'layout/base.html' %}
+
+{% load static %}
+{% block main %}
+
+	<form class="checkout bg0 p-t-75 p-b-85">
+		<div class="container checkout-cover">
+			<div class="row">
+                <div class="col-sm-12 col-lg-6 col-xl-6 m-lr-auto m-b-50">
+                    <h4 class="mtext-109 cl2 p-b-30">
+                        Customer info
+                    </h4>
+                    <div class=" bor8 bg0 m-b-22">
+                        <input class="first-name stext-111 cl8 plh3 size-111 p-lr-15" type="text" name="first-name" placeholder="First name">
+                    </div>
+
+                    <div class="bor8 bg0 m-b-22">
+                        <input class="last-name stext-111 cl8 plh3 size-111 p-lr-15" type="text" name="last-name" placeholder="Last name">
+                    </div>
+
+                    <div class="bor8 bg0 m-b-22">
+                        <input class="email stext-111 cl8 plh3 size-111 p-lr-15" type="email" name="email" value="{{ user.email }}" placeholder="Email">
+                    </div>
+
+                    <div class="bor8 bg0 m-b-22">
+                        <input class="phone stext-111 cl8 plh3 size-111 p-lr-15" type="text" name="phone" value="user." placeholder="Phone">
+                    </div>
+
+                    <div class="bor8 bg0 m-b-22">
+                        <input class="city stext-111 cl8 plh3 size-111 p-lr-15" type="text" name="city" placeholder="City">
+                    </div>
+
+                    <div class="bor8 bg0 m-b-22">
+                        <input class="district stext-111 cl8 plh3 size-111 p-lr-15" type="text" name="district" placeholder="District">
+                    </div>
+
+                    <div class="bor8 bg0 m-b-22">
+                        <input class="ward stext-111 cl8 plh3 size-111 p-lr-15" type="text" name="ward" placeholder="Ward">
+                    </div>
+
+                    <div class="bor8 bg0 m-b-22">
+                        <input class="address stext-111 cl8 plh3 size-111 p-lr-15" type="text" name="address" placeholder="Address">
+                    </div>
+                </div>
+
+				<div class="col-sm-12 col-lg-6 col-xl-6 m-lr-auto m-b-50">
+					<div class="bor10 p-lr-40 p-t-30 p-b-40 m-l-63 m-r-40 m-lr-0-xl p-lr-15-sm">
+						<h4 class="mtext-109 cl2 p-b-30">
+							Order Details
+						</h4>
+
+                        <table class="table-items">
+                            <thead class="">
+                                <th  class="p-r-2">item</th>
+                                <th  class="">size</th>
+                                <th class="">price</th>
+                                <th  class="">quantity</th>
+                                <th  class="">amount</th>
+                            </thead>
+                            {% if cart.cart_items.all|length > 0 %}
+                            {% for item in cart.cart_items.all %}
+                            <tr class="table_row">
+                                <td class="column-1">{{ item.product.title }}</td>
+                                <td class="column-2">{{ item.size }}</td>
+                                <td class="column-2">$ {{ item.price }}</td>
+                                <td class="column-2">{{ item.quantity }}</td>
+                                <td class="column-2">{{ item.price }}</td>
+                            </tr>
+                            {% endfor %}
+                            {% endif %}
+                        </table>
+
+						<div class="flex-w flex-t bor12 p-b-13">
+                            Amount: ${{ cart.amount }}
+						</div>
+
+                        <div class="flex-w flex-t bor12 p-b-13">
+                            Tax: ${{ cart.tax_total }}
+						</div>
+
+						<div class="flex-w flex-t bor12 p-b-13">
+                            Total Amount: ${{ cart.total_amount }}
+						</div>
+
+						<div class="btn-checkout flex-c-m stext-101 cl0 size-116 bg3 bor14 hov-btn3 p-lr-15 trans-04 pointer m-t-4">
+							Proceed to Checkout
+						</div>
+                        <p class="message-info error"></p>
+					</div>
+				</div>
+			</div>
+		</div>
+	</form>
+
+	{% endblock %}
+
+{% block js %}
+    <script>
+        /*==================================================================
+        [ checkout ]*/
+        $('.btn-checkout').on('click', function (e) {
+            e.preventDefault();
+            let firstName = $('.first-name').val();
+            let lastName = $('.last-name').val();
+            let email = $('.email').val();
+            let phone = $('.phone').val();
+            let city = $('.city').val();
+            let district = $('.district').val();
+            let ward = $('.ward').val();
+            let address = $('.address').val();
+            let csrftoken = $.cookie('csrftoken');
+            if (!firstName || !lastName || !email || !city || !district || !ward || !address) {
+                $('.message-info').text('Please enter value for all fields');
+            } else {
+                $.ajax({
+                    type: 'POST',
+                    url: 'http://127.0.0.1:8000/checkout/',
+                    dataType: 'json',
+                    crossDomain: true,
+                    headers: {'X-CSRFToken': csrftoken},
+                    data: {
+                        'first_name': firstName,
+                        'last_name': lastName,
+                        'email': email,
+                        'phone': phone,
+                        'city': city,
+                        'district': district,
+                        'ward': ward,
+                        'address': address,
+                    },
+                    success: function (result) {
+                        window.location.href = 'http://127.0.0.1:8000/success/';
+                    },
+                    error: function (error, status) {
+                        if (error.message) {
+                            $('.message-info').text(error.message);
+                        } else {
+                            $('.message-info').text('sorry, error in progress checkout!');
+                        }
+                    }
+                });
+            }
+        });
+    </script>
+{% endblock js %}
