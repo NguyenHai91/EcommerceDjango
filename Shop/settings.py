@@ -24,9 +24,9 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-1di0mc012lcd=k*)5moel7de+_g)y88!bq0g9q-hpp(8iv%!2a'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 # for api and set session
-ALLOWED_HOSTS = ['127.0.0.1', 'localhost', '*']
+ALLOWED_HOSTS = ['127.0.0.1', 'localhost', 'ecommerce-django-website.herokuapp.com']
 
 
 # Application definition
@@ -64,6 +64,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware',
 ]
 
 ROOT_URLCONF = 'Shop.urls'
@@ -102,24 +103,24 @@ WSGI_APPLICATION = 'Shop.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
 
-DATABASES = {
-  'default': {
-    'ENGINE': 'django.db.backends.sqlite3',
-    'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
-  }
-}
-
-# MySql
 # DATABASES = {
 #   'default': {
-#     'ENGINE': 'django.db.backends.postgresql',
-#     'NAME': '',
-#     'HOST':'',
-#     'PORT': 5432,
-#     'USER': 'root',
-#     'PASSWORD': ''
+#     'ENGINE': 'django.db.backends.sqlite3',
+#     'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
 #   }
 # }
+
+# MySql
+DATABASES = {
+  'default': {
+    'ENGINE': 'django.db.backends.postgresql',
+    'NAME': 'd64naott9gc2sl',
+    'HOST':'ec2-44-205-112-253.compute-1.amazonaws.com',
+    'PORT': 5432,
+    'USER': 'hcraedsdxuxvzl',
+    'PASSWORD': 'db0f965011dbbba997ac7db12c3e1c68775ea344276d15f7acd68acc473f2841'
+  }
+}
 
 # Password validation
 AUTH_PASSWORD_VALIDATORS = [
