@@ -44,7 +44,6 @@ def get_filename_ext(filename):
 
 
 def upload_name_path(instance, file, folder='images'):
-  print(instance, file)
   folderName = randint(1, 40000000)
   filename = randint(1, folderName)
   ext = get_filename_ext(file)[1]
