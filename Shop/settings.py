@@ -10,7 +10,9 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/3.2/ref/settings/
 """
 import os
-import django_heroku
+import cloudinary
+import cloudinary.uploader
+import cloudinary.api
 from pathlib import Path
 from datetime import timedelta
 
@@ -46,6 +48,9 @@ INSTALLED_APPS = [
     'rest_framework_simplejwt',
     'corsheaders',
     'ckeditor',
+    'django.contrib.staticfiles',
+    'cloudinary_storage',
+    'cloudinary',
 
     # define apps
     'billing',
@@ -76,6 +81,12 @@ SIMPLE_JWT = {
     'JWT_ALLOW_REFRESH': True,
     'REFRESH_TOKEN_LIFETIME': timedelta(days=7),
 }
+
+cloudinary.config(
+  cloud_name = "hopkwuhy0",
+  api_key = "446988924392248",
+  api_secret = "U6OYTDlWY7-WbSo6GdCq-lerPUw"
+)
 
 CORS_ORIGIN_ALLOW_ALL = True
 CORS_ALLOW_CREDENTIALS = True
@@ -191,8 +202,7 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 # for api reactjs
 # MEDIA_ROOT = os.path.join(BASE_DIR, '')
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
-django_heroku.settings(locals())
 
 # Default primary key field type
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
-
+DEFAULT_FILE_STORAGE='cloudinary_storage.storage.MediaCloudinaryStorage'
