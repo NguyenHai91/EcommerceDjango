@@ -184,7 +184,7 @@ if not DEBUG:
 
 STATICFILES_DIRS = (os.path.join(BASE_DIR, ''),)
 
-MEDIA_URL = '/media/'
+MEDIA_URL = ''
 # for template
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media/')
 # for api reactjs
