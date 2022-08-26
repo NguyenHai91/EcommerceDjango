@@ -440,9 +440,10 @@
             if (color && color > 0) {
                 Object.assign(data, {'color': color});
             }
+            const host = document.location.origin;
             $.ajax({
                 type: 'GET',
-                url: `http://127.0.0.1:8000/add-cart/id=${id}/quantity=${quantity}/`,
+                url: `${host}/add-cart/id=${id}/quantity=${quantity}/`,
                 dataType: 'json',
                 data: data,
                 crossDomain: true,
@@ -452,7 +453,7 @@
                         $('.js-show-cart').attr('data-notify', num_cart);
                         localStorage.setItem('num-cart', result.num_cart);
                     }
-                    window.location.href = 'http://127.0.0.1:8000/cart/';
+                    window.location.href = '${host}/cart/';
                 }
             });
         });

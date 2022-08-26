@@ -109,15 +109,17 @@
             e.preventDefault();
             let id_item = $(this).attr('data-item');
             let csrftoken = $.cookie('csrftoken');
+
+            const host = document.location.origin;
             $.ajax({
-                url: `http://127.0.0.1:8000/cart/delete/id=${id_item}/`,
+                url: `${host}/cart/delete/id=${id_item}/`,
                 type: 'DELETE',
                 dataType: 'json',
                 crossDomain: true,
                 headers: {'X-CSRFToken': csrftoken},
                 success: function (result) {
                     localStorage.setItem('num-cart', result.num_cart);
-                    window.location.href = 'http://127.0.0.1:8000/cart/';
+                    window.location.href = `${host}/cart/`;
                 }
             });
         });

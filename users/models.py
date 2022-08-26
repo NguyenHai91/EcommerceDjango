@@ -28,7 +28,7 @@ class MyUserManager(BaseUserManager):
     user = self.model(email=email, username=username)
     user.roll = roll
     user.set_password(password)
-    user.active = False
+    user.active = True
     user.save(using=self._db)
     return user
 
@@ -43,7 +43,7 @@ class MyUser(AbstractBaseUser):
   email = models.EmailField(unique=True)
   password = models.CharField(max_length=250)
   roll = models.SmallIntegerField(choices=ROLL, default=ROLL_CUSTOMER)
-  active = models.BooleanField(default=False)
+  active = models.BooleanField(default=True)
   last_login = models.DateTimeField(auto_now=True)
   created_date = models.DateTimeField(auto_now_add=True)
   updated_date = models.DateTimeField(auto_now=True)

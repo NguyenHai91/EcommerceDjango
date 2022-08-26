@@ -1,6 +1,7 @@
 
 (function ($) {
     "use strict";
+    const host = document.location.origin;
 
     /*[ Load page ]
     ===========================================================*/
@@ -239,7 +240,6 @@
             for(var i=0; i<isotopeButton.length; i++) {
                 $(isotopeButton[i]).removeClass('how-active1');
             }
-
             $(this).addClass('how-active1');
         });
     });
@@ -289,7 +289,7 @@
                 numProduct -= 1;
                 $.ajax({
                     type: 'POST',
-                    url: `http://localhost:8000/cart/update/id_item=${idItem}/`,
+                    url: `${host}/cart/update/id_item=${idItem}/`,
                     typeData: 'json',
                     crossDomain: true,
                     data: {
@@ -323,7 +323,7 @@
             numProduct += 1;
             $.ajax({
                 type: 'POST',
-                url: `http://localhost:8000/cart/update/id_item=${idItem}/`,
+                url: `${host}/cart/update/id_item=${idItem}/`,
                 typeData: 'json',
                 crossDomain: true,
                 xhrFields: {
@@ -397,7 +397,7 @@
         let idProduct = $(this).attr('data-id');
         $.ajax({
             type: 'GET',
-            url: `http://localhost:8000/product/id=${idProduct}/`,
+            url: `${host}/product/id=${idProduct}/`,
             dataType: 'json',
             success: function (result) {
                 if (result.product) {
@@ -440,7 +440,7 @@
     [ logout ]*/
     $('.logout').on('click', function (e) {
         $.ajax({
-            url: 'http://127.0.0.1:8000/logout/',
+            url: `${host}/logout/`,
             type: 'GET',
             typeData: 'json',
             success: function (result) {
@@ -451,7 +451,7 @@
                     $('.user').removeClass('hide');
                     localStorage.removeItem('num-cart');
                     localStorage.removeItem('num-wish');
-                    window.location.href = `http://127.0.0.1:8000/`;
+                    window.location.href = `${host}`;
                 }
             }
         });
@@ -467,7 +467,7 @@
         if (id_product > 0) {
             $.ajax({
                 type: 'GET',
-                url: `http://127.0.0.1:8000/wish/add/id=${id_product}/`,
+                url: `${host}/wish/add/id=${id_product}/`,
                 dataType: 'json',
                 crossDomain: true,
                 success: function (result) {

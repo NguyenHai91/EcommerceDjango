@@ -56,9 +56,10 @@
                 messageEle.text('* Please enter value for password fields');
                 return;
             }
+            const host = document.location.origin;
             $.ajax({
                 type: 'POST',
-                url: 'http://127.0.0.1:8000/login/',
+                url: `${host}/login/`,
                 dataType: 'json',
                 headers: {'X-CSRFToken': csrftoken},
                 mode: 'same-origin',
@@ -89,7 +90,7 @@
                         if (result.next) {
                             next = result.next;
                         }
-                        window.location.href = `http://127.0.0.1:8000/${next}`;
+                        window.location.href = `${host}`;
                     }
                     if (result.code !== 200 && result.status === 'error') {
                         messageEle.text(result.message);

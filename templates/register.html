@@ -151,9 +151,10 @@
             formData.append('password', password);
             formData.append('re-password', rePassword);
 
+            const host = document.location.origin;
             $.ajax({
                 type: 'POST',
-                url: 'http://127.0.0.1:8000/register/',
+                url: `${host}/register/`,
                 dataType: 'json',
                 mimeType: 'multipart/form-data',
                 contentType: false,
@@ -163,7 +164,7 @@
                 data: formData,
                 success: function (result) {
                     if (result.code === 200 && result.status === 'success') {
-                        window.location.href = 'http://127.0.0.1:8000/login/';
+                        window.location.href = `${host}/login/`;
                         return;
                     }
                     if (result.code !== 200 && result.status === 'error') {
