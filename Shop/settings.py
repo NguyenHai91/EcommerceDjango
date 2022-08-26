@@ -49,8 +49,8 @@ INSTALLED_APPS = [
     'corsheaders',
     'ckeditor',
     'django.contrib.staticfiles',
-    'cloudinary_storage',
     'cloudinary',
+    'cloudinary_storage',
 
     # define apps
     'billing',
@@ -194,7 +194,7 @@ STATIC_URL = '/static/'
 if not DEBUG:
   STATIC_ROOT = os.path.join(BASE_DIR, 'static/')
 
-STATICFILES_DIRS = (os.path.join(BASE_DIR, ''),)
+# STATICFILES_DIRS = (os.path.join(BASE_DIR, ''),)
 
 MEDIA_URL = '/media/'
 # for template
