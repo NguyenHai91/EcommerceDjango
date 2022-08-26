@@ -13,3 +13,4 @@ PyJWT==2.3.0
 pytz==2022.1
 sqlparse==0.4.2
 whitenoise==6.0.0
+django-heroku==0.3.1
