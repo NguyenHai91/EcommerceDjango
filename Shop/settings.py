@@ -184,11 +184,12 @@ if not DEBUG:
 
 STATICFILES_DIRS = (os.path.join(BASE_DIR, ''),)
 
-MEDIA_URL = ''
+MEDIA_URL = '/media/'
 # for template
-MEDIA_ROOT = os.path.join(BASE_DIR, 'media/')
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 # for api reactjs
 # MEDIA_ROOT = os.path.join(BASE_DIR, '')
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedStaticFilesStorage'
 
 # Default primary key field type
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
