@@ -11,8 +11,6 @@ https://docs.djangoproject.com/en/3.2/ref/settings/
 """
 import os
 import cloudinary
-import cloudinary.uploader
-import cloudinary.api
 from pathlib import Path
 from datetime import timedelta
 
@@ -48,9 +46,8 @@ INSTALLED_APPS = [
     'rest_framework_simplejwt',
     'corsheaders',
     'ckeditor',
-    'django.contrib.staticfiles',
-    'cloudinary',
     'cloudinary_storage',
+    'cloudinary',
 
     # define apps
     'billing',

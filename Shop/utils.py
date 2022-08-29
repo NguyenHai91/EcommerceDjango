@@ -47,4 +47,4 @@ def upload_name_path(instance, file, folder='images'):
   folderName = randint(1, 40000000)
   filename = randint(1, folderName)
   ext = get_filename_ext(file)[1]
-  return f'media/{folder}/{filename}{ext}'
+  return f'{folder}/{filename}{ext}'
