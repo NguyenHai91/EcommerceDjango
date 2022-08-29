@@ -46,6 +46,7 @@ INSTALLED_APPS = [
     'rest_framework_simplejwt',
     'corsheaders',
     'ckeditor',
+    'django.contrib.staticfiles',
     'cloudinary_storage',
     'cloudinary',
 
