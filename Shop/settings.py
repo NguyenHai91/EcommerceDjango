@@ -200,11 +200,11 @@ STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 #   api_secret = "U6OYTDlWY7-WbSo6GdCq-lerPUw"
 # )
 
-CLOUDINARY_STORAGE(
-  cloud_name = "hopkwuhy0",
-  api_key = "446988924392248",
-  api_secret = "U6OYTDlWY7-WbSo6GdCq-lerPUw"
-)
+CLOUDINARY_STORAGE = {
+  'CLOUD_NAME': 'hopkwuhy0',
+  'API_KEY': '446988924392248',
+  'API_SECRET': 'U6OYTDlWY7-WbSo6GdCq-lerPUw'
+}
 
 # Default primary key field type
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
