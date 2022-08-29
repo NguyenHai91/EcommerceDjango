@@ -10,7 +10,7 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/3.2/ref/settings/
 """
 import os
-import cloudinary
+import cloudinary_storage
 from pathlib import Path
 from datetime import timedelta
 
@@ -39,16 +39,14 @@ INSTALLED_APPS = [
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
-    'django.contrib.staticfiles',
 
     # installed apps
     'rest_framework',
     'rest_framework_simplejwt',
     'corsheaders',
     'ckeditor',
-    'django.contrib.staticfiles',
     'cloudinary_storage',
-    'cloudinary',
+    'django.contrib.staticfiles',
 
     # define apps
     'billing',
@@ -80,11 +78,6 @@ SIMPLE_JWT = {
     'REFRESH_TOKEN_LIFETIME': timedelta(days=7),
 }
 
-cloudinary.config(
-  cloud_name = "hopkwuhy0",
-  api_key = "446988924392248",
-  api_secret = "U6OYTDlWY7-WbSo6GdCq-lerPUw"
-)
 
 CORS_ORIGIN_ALLOW_ALL = True
 CORS_ALLOW_CREDENTIALS = True
@@ -200,6 +193,18 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 # for api reactjs
 # MEDIA_ROOT = os.path.join(BASE_DIR, '')
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+
+# cloudinary.config(
+#   cloud_name = "hopkwuhy0",
+#   api_key = "446988924392248",
+#   api_secret = "U6OYTDlWY7-WbSo6GdCq-lerPUw"
+# )
+
+CLOUDINARY_STORAGE(
+  cloud_name = "hopkwuhy0",
+  api_key = "446988924392248",
+  api_secret = "U6OYTDlWY7-WbSo6GdCq-lerPUw"
+)
 
 # Default primary key field type
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
