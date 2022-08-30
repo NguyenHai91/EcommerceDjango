@@ -187,10 +187,10 @@ if not DEBUG:
 
 STATICFILES_DIRS = (os.path.join(BASE_DIR, ''),)
 
-STATICFILES_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
+# STATICFILES_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
 
 MEDIA_URL = '/media/'
-# for template
+
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 # for api reactjs
 # MEDIA_ROOT = os.path.join(BASE_DIR, '')
