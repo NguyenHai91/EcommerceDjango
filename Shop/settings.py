@@ -25,7 +25,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-1di0mc012lcd=k*)5moel7de+_g)y88!bq0g9q-hpp(8iv%!2a'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 # for api and set session
 ALLOWED_HOSTS = ['127.0.0.1', 'localhost', 'ecommerce-django-website.herokuapp.com']
@@ -115,7 +115,7 @@ WSGI_APPLICATION = 'Shop.wsgi.application'
 #   }
 # }
 
-# MySql
+# Postgresql
 DATABASES = {
   'default': {
     'ENGINE': 'django.db.backends.postgresql',
@@ -196,7 +196,7 @@ MEDIA_URL = '/media/'
 # for api reactjs
 # MEDIA_ROOT = os.path.join(BASE_DIR, '')
 
-DEFAULT_FILE_STORAGE='cloudinary_storage.storage.MediaCloudinaryStorage'
+DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
 
 # cloudinary.config(
 #   cloud_name = "hopkwuhy0",
@@ -204,11 +204,12 @@ DEFAULT_FILE_STORAGE='cloudinary_storage.storage.MediaCloudinaryStorage'
 #   api_secret = "U6OYTDlWY7-WbSo6GdCq-lerPUw"
 # )
 
+CLOUDINARY_URL = 'cloudinary://446988924392248:U6OYTDlWY7-WbSo6GdCq-lerPUw@hopkwuhy0'
+
 CLOUDINARY_STORAGE = {
   'CLOUD_NAME': 'hopkwuhy0',
   'API_KEY': '446988924392248',
   'API_SECRET': 'U6OYTDlWY7-WbSo6GdCq-lerPUw',
-  'CLOUDINARY_URL': 'cloudinary://446988924392248:U6OYTDlWY7-WbSo6GdCq-lerPUw@hopkwuhy0',
 }
 
 # Default primary key field type
