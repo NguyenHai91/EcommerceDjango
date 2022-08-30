@@ -25,7 +25,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-1di0mc012lcd=k*)5moel7de+_g)y88!bq0g9q-hpp(8iv%!2a'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 # for api and set session
 ALLOWED_HOSTS = ['127.0.0.1', 'localhost', 'ecommerce-django-website.herokuapp.com']
