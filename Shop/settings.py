@@ -207,7 +207,8 @@ DEFAULT_FILE_STORAGE='cloudinary_storage.storage.MediaCloudinaryStorage'
 CLOUDINARY_STORAGE = {
   'CLOUD_NAME': 'hopkwuhy0',
   'API_KEY': '446988924392248',
-  'API_SECRET': 'U6OYTDlWY7-WbSo6GdCq-lerPUw'
+  'API_SECRET': 'U6OYTDlWY7-WbSo6GdCq-lerPUw',
+  'CLOUDINARY_URL': 'cloudinary://446988924392248:U6OYTDlWY7-WbSo6GdCq-lerPUw@hopkwuhy0',
 }
 
 # Default primary key field type
