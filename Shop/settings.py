@@ -182,6 +182,8 @@ EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.2/howto/static-files/
 
+CLOUDINARY_URL = 'cloudinary://446988924392248:U6OYTDlWY7-WbSo6GdCq-lerPUw@hopkwuhy0'
+
 STATIC_URL = '/static/'
 if not DEBUG:
   STATIC_ROOT = os.path.join(BASE_DIR, 'static/')
@@ -194,11 +196,12 @@ MEDIA_URL = '/media/'
 
 # MEDIA_ROOT = 'media'
 # for api reactjs
+
 MEDIA_ROOT = os.path.join(CLOUDINARY_URL, '')
 
 DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
 
-CLOUDINARY_URL = 'cloudinary://446988924392248:U6OYTDlWY7-WbSo6GdCq-lerPUw@hopkwuhy0'
+
 
 CLOUDINARY_STORAGE = {
   'CLOUD_NAME': 'hopkwuhy0',
