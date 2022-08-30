@@ -185,14 +185,16 @@ STATIC_URL = '/static/'
 if not DEBUG:
   STATIC_ROOT = os.path.join(BASE_DIR, 'static/')
 
-STATICFILES_DIRS = (os.path.join(BASE_DIR, ''),)
+# STATICFILES_DIRS = (os.path.join(BASE_DIR, ''),)
+
+STATICFILES_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
 
 MEDIA_URL = '/media/'
 # for template
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 # for api reactjs
 # MEDIA_ROOT = os.path.join(BASE_DIR, '')
-# STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+
 
 # cloudinary.config(
 #   cloud_name = "hopkwuhy0",
