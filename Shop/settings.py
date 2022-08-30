@@ -39,7 +39,6 @@ INSTALLED_APPS = [
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
-    'cloudinary_storage',
     'django.contrib.staticfiles',
 
     # installed apps
@@ -47,6 +46,8 @@ INSTALLED_APPS = [
     'rest_framework_simplejwt',
     'corsheaders',
     'ckeditor',
+    'cloudinary_storage',
+    'cloudinary',
 
     # define apps
     'billing',
@@ -191,10 +192,11 @@ STATICFILES_DIRS = (os.path.join(BASE_DIR, ''),)
 
 MEDIA_URL = '/media/'
 
-MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+# MEDIA_ROOT = 'media'
 # for api reactjs
 # MEDIA_ROOT = os.path.join(BASE_DIR, '')
 
+DEFAULT_FILE_STORAGE='cloudinary_storage.storage.MediaCloudinaryStorage'
 
 # cloudinary.config(
 #   cloud_name = "hopkwuhy0",
@@ -210,4 +212,4 @@ CLOUDINARY_STORAGE = {
 
 # Default primary key field type
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
-DEFAULT_FILE_STORAGE='cloudinary_storage.storage.MediaCloudinaryStorage'
+
