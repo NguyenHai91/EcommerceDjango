@@ -194,15 +194,9 @@ MEDIA_URL = '/media/'
 
 # MEDIA_ROOT = 'media'
 # for api reactjs
-# MEDIA_ROOT = os.path.join(BASE_DIR, '')
+# MEDIA_ROOT = os.path.join(CLOUDINARY_URL, '')
 
 DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
-
-# cloudinary.config(
-#   cloud_name = "hopkwuhy0",
-#   api_key = "446988924392248",
-#   api_secret = "U6OYTDlWY7-WbSo6GdCq-lerPUw"
-# )
 
 CLOUDINARY_URL = 'cloudinary://446988924392248:U6OYTDlWY7-WbSo6GdCq-lerPUw@hopkwuhy0'
 
