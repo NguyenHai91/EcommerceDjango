@@ -189,7 +189,7 @@ STATICFILES_DIRS = (os.path.join(BASE_DIR, ''),)
 
 # STATICFILES_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
 
-MEDIA_URL = '/static/'
+MEDIA_URL = '/media/'
 
 # MEDIA_ROOT = 'media'
 # for api reactjs
