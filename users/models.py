@@ -2,6 +2,7 @@ import re
 from django.contrib.auth.models import AbstractBaseUser, BaseUserManager
 from django.db import models
 from django.core.files.storage import default_storage, FileSystemStorage
+from Shop.settings import STATIC_URL
 
 from Shop.utils import unique_slug_generator, upload_name_path
 
@@ -128,5 +129,9 @@ class ProfileUser(models.Model):
 
   def __str__(self):
     return self.user.email
+
+  @property
+  def get_absolute_image_url(self):
+    return f'{STATIC_URL}{self.image.url}'
 
 
