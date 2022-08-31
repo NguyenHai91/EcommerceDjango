@@ -118,7 +118,7 @@ class ProfileUser(models.Model):
   user = models.OneToOneField(MyUser, related_name='profile_user', on_delete=models.CASCADE)
   first_name = models.CharField(max_length=200)
   last_name = models.CharField(max_length=200)
-  avatar = models.ImageField(upload_to='user/', null=True)
+  avatar = models.ImageField(upload_to='media/user/', null=True)
   phone = models.CharField(max_length=200, null=True, blank=True)
   gender = models.SmallIntegerField(choices=GENDER, default=GENDER_MALE)
   city = models.CharField(max_length=250, null=True, blank=True)

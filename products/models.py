@@ -122,7 +122,7 @@ pre_save.connect(product_pre_save_receiver, sender=Product)
 
 class ImageProduct(models.Model):
   product = models.ForeignKey(Product, on_delete=models.CASCADE, related_name='list_images')
-  image = models.ImageField(upload_to='images/')
+  image = models.ImageField(upload_to='media/images/')
   active = models.BooleanField(default=True)
   created_date = models.DateTimeField(auto_now_add=True)
 
