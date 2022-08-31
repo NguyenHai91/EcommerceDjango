@@ -12,7 +12,6 @@ https://docs.djangoproject.com/en/3.2/ref/settings/
 import os
 from pathlib import Path
 from datetime import timedelta
-import cloudinary_storage
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -46,8 +45,6 @@ INSTALLED_APPS = [
     'rest_framework_simplejwt',
     'corsheaders',
     'ckeditor',
-    'cloudinary_storage',
-    'cloudinary',
 
     # define apps
     'billing',
@@ -197,17 +194,17 @@ MEDIA_URL = '/media/'
 # MEDIA_ROOT = 'media'
 # for api reactjs
 
-MEDIA_ROOT = os.path.join(CLOUDINARY_URL, '')
+MEDIA_ROOT = os.path.join(BASE_DIR, '')
 
-DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
+# DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
 
 
 
-CLOUDINARY_STORAGE = {
-  'CLOUD_NAME': 'hopkwuhy0',
-  'API_KEY': '446988924392248',
-  'API_SECRET': 'U6OYTDlWY7-WbSo6GdCq-lerPUw',
-}
+# CLOUDINARY_STORAGE = {
+#   'CLOUD_NAME': 'hopkwuhy0',
+#   'API_KEY': '446988924392248',
+#   'API_SECRET': 'U6OYTDlWY7-WbSo6GdCq-lerPUw',
+# }
 
 # Default primary key field type
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'

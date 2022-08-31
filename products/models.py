@@ -68,7 +68,7 @@ class Product(models.Model):
   category = models.ForeignKey(Category, on_delete=models.CASCADE)
   sizes = models.ManyToManyField(Size)
   colors = models.ManyToManyField(Color)
-  image = models.ImageField(upload_to=upload_name_path, null=True)
+  image = models.ImageField(upload_to='images/', null=True)
   title = models.CharField(max_length=120)
   slug = models.SlugField(blank=True, unique=True)
   active = models.BooleanField(default=True)
