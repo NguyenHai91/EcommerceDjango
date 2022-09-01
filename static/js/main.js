@@ -461,6 +461,7 @@
     [ add item to wish ]*/
     $('.js-addwish-detail').on('click', function (e) {
         e.preventDefault();
+        let self = $(this);
         let added = $(this).hasClass('js-addedwish-detail');
         if (added) return;
         let id_product = $(this).attr('data-tooltip');
@@ -472,12 +473,10 @@
                 crossDomain: true,
                 success: function (result) {
                     //show inform add item to wish
-                    $('.js-addwish-detail').each(function() {
-                        let nameProduct = $('.js-name-detail').text();
-                        swal(nameProduct, "is added to wishlist !", "success");
-                        $(this).addClass('js-addedwish-detail');
-                        // $(this).off('click');
-                    });
+                    let nameProduct = self.attr('data-title');
+                    swal(nameProduct, "is added to wishlist !", "success");
+                    self.addClass('js-addedwish-detail');
+                    self.off('click');
                     if (result.num_wish) {
                         $('.js-show-wish').attr('data-notify', result.num_wish);
                         localStorage.setItem('num-wish', result.num_wish);

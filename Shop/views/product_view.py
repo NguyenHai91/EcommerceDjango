@@ -35,7 +35,7 @@ def product_detail(request, id, *args, **kwargs):
     sizes = None
     try:
       sizes = product.sizes.all()
-      colors = product.color.all()
+      colors = product.colors.all()
     except:
       pass
 
