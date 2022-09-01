@@ -463,7 +463,12 @@
         e.preventDefault();
         let self = $(this);
         let added = $(this).hasClass('js-addedwish-detail');
-        if (added) return;
+        
+        if (added) {
+            let heart1 = self.children('icon-heart1');
+            if (heart1) heart1.removeItem;
+            return;
+        }
         let id_product = $(this).attr('data-tooltip');
         if (id_product > 0) {
             $.ajax({
@@ -478,7 +483,7 @@
                     self.removeClass('js-addwish-detail');
                     self.addClass('js-addedwish-detail');
                     let heart1 = self.children('icon-heart1');
-                    self.removeItem(heart1);
+                    if (heart1) heart1.removeItem;
                     // self.off('click');
                     if (result.num_wish) {
                         $('.js-show-wish').attr('data-notify', result.num_wish);
