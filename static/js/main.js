@@ -477,6 +477,8 @@
                     swal(nameProduct, "is added to wishlist !", "success");
                     self.removeClass('js-addwish-detail');
                     self.addClass('js-addedwish-detail');
+                    let heart1 = self.children('icon-heart1');
+                    self.removeItem(heart1);
                     // self.off('click');
                     if (result.num_wish) {
                         $('.js-show-wish').attr('data-notify', result.num_wish);
