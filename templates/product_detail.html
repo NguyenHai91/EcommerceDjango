@@ -438,7 +438,7 @@
             if (color && color > 0) {
                 Object.assign(data, {'color': color});
             }
-            const host = window.location.origin;
+            const host = document.location.origin;
             $.ajax({
                 type: 'GET',
                 url: `${host}/add-cart/id=${id}/quantity=${quantity}/`,
@@ -451,7 +451,7 @@
                         $('.js-show-cart').attr('data-notify', num_cart);
                         localStorage.setItem('num-cart', result.num_cart);
                     }
-                    window.location.href = '${host}/cart/';
+                    window.location.href = `${host}/cart/`;
                 }
             });
         });
