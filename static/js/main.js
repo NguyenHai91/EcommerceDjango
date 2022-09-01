@@ -465,8 +465,8 @@
         let added = $(this).hasClass('js-addedwish-detail');
         
         if (added) {
-            let heart1 = self.children('icon-heart1');
-            let heart2 = self.children('icon-heart2');
+            let heart1 = self.children('img')[0];
+            let heart2 = self.children('img')[1];
             if (heart1) heart1.addClass('icon-heart-hide');
             if (heart2) heart2.addClass('icon-heart-show');
             return;
@@ -484,8 +484,8 @@
                     swal(nameProduct, "is added to wishlist !", "success");
                     self.removeClass('js-addwish-detail');
                     self.addClass('js-addedwish-detail');
-                    let heart1 = self.children('icon-heart1');
-                    let heart2 = self.children('icon-heart2');
+                    let heart1 = self.children('img')[0];
+                    let heart2 = self.children('img')[1];
                     if (heart1) heart1.addClass('icon-heart-hide');
                     if (heart2) heart2.addClass('icon-heart-show');
                     // self.off('click');
