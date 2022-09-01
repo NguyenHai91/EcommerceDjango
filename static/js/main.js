@@ -466,7 +466,9 @@
         
         if (added) {
             let heart1 = self.children('icon-heart1');
-            if (heart1) heart1.removeItem;
+            let heart2 = self.children('icon-heart2');
+            if (heart1) heart1.addClass('icon-heart-hide');
+            if (heart2) heart2.addClass('icon-heart-show');
             return;
         }
         let id_product = $(this).attr('data-tooltip');
@@ -483,7 +485,9 @@
                     self.removeClass('js-addwish-detail');
                     self.addClass('js-addedwish-detail');
                     let heart1 = self.children('icon-heart1');
-                    if (heart1) heart1.removeItem;
+                    let heart2 = self.children('icon-heart2');
+                    if (heart1) heart1.addClass('icon-heart-hide');
+                    if (heart2) heart2.addClass('icon-heart-show');
                     // self.off('click');
                     if (result.num_wish) {
                         $('.js-show-wish').attr('data-notify', result.num_wish);

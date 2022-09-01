@@ -2221,6 +2221,14 @@ input.num-product::-webkit-inner-spin-button {
   width: 30%;
 }
 
+.icon-heart-show {
+  opacity: 1;
+}
+
+.icon-heart-hide {
+  opacity: 0;
+}
+
 .btn-addwish-b2 .icon-heart2 {
   opacity: 0;
 }
