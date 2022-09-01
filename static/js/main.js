@@ -490,6 +490,7 @@
                         localStorage.setItem('num-wish', result.num_wish);
                     }
                 },
+                error: function(result) {}
             });
         }
 
