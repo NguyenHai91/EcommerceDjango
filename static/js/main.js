@@ -475,8 +475,9 @@
                     //show inform add item to wish
                     let nameProduct = self.attr('data-title');
                     swal(nameProduct, "is added to wishlist !", "success");
+                    self.removeClass('js-addwish-detail');
                     self.addClass('js-addedwish-detail');
-                    self.off('click');
+                    // self.off('click');
                     if (result.num_wish) {
                         $('.js-show-wish').attr('data-notify', result.num_wish);
                         localStorage.setItem('num-wish', result.num_wish);
