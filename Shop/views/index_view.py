@@ -12,11 +12,11 @@ def index(request, *args, **kwargs):
   men_category = Category.objects.filter(title__iexact='men').first()
   if men_category is not None:
     men_products = []
-    men_products += Product.objects.filter(category=men_category, quantity__gt=0)[:4].values()
+    men_products += Product.objects.filter(category=men_category, quantity__gt=0)[:2].values()
     sub_men_categories = Category.objects.filter(parent=men_category)
     if sub_men_categories.count() > 0:
       for item in sub_men_categories:
-        products_in_category = Product.objects.filter(category=item, quantity__gt=0)[:4].values()
+        products_in_category = Product.objects.filter(category=item, quantity__gt=0)[:2].values()
         if products_in_category:
           men_products += products_in_category
 
@@ -25,12 +25,12 @@ def index(request, *args, **kwargs):
   women_category = Category.objects.filter(title__iexact='women').first()
   if women_category is not None:
     women_products = []
-    women_products += Product.objects.filter(category=women_category, quantity__gt=0)[:4].values()
+    women_products += Product.objects.filter(category=women_category, quantity__gt=0)[:2].values()
     sub_women_categories = Category.objects.filter(parent=women_category)
 
     if sub_women_categories.count() > 0:
       for item in sub_women_categories:
-        products_in_category = Product.objects.filter(category=item, quantity__gt=0)[:4].values()
+        products_in_category = Product.objects.filter(category=item, quantity__gt=0)[:2].values()
         if products_in_category:
           women_products += products_in_category
 
@@ -39,11 +39,11 @@ def index(request, *args, **kwargs):
   accessory_category = Category.objects.filter(title__iexact='accessories').first()
   if accessory_category is not None:
     accessories = []
-    accessories += Product.objects.filter(category=accessory_category, quantity__gt=0)[:4].values()
+    accessories += Product.objects.filter(category=accessory_category, quantity__gt=0)[:2].values()
     sub_accessory_categories = Category.objects.filter(parent=accessory_category)
     if sub_accessory_categories.count() > 0:
       for item in sub_accessory_categories:
-        products_in_category = Product.objects.filter(category=item, quantity__gt=0)[:4].values()
+        products_in_category = Product.objects.filter(category=item, quantity__gt=0)[:2].values()
         if products_in_category:
           accessories += products_in_category
 
