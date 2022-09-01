@@ -43,18 +43,18 @@
 										</a>
 									</div>
 								</div>
-                                {% if product.list_images.all|length > 0 %}
-                                {% for item in product.list_images.all %}
-                                <div class="item-slick3" data-thumb='/{{ item.image }}'>
-                                        <div class="wrap-pic-w pos-relative">
-                                            <img src='/{{ item.image }}' alt="IMG-PRODUCT">
-                                            <a class="flex-c-m size-108 how-pos1 bor0 fs-16 cl10 bg0 hov-btn3 trans-04" href='/{{ item.image }}'>
-                                                <i class="fa fa-expand"></i>
-                                            </a>
-                                        </div>
-                                    </div>
-                                {% endfor %}
-                                {% endif %}
+										{% if product.list_images.all|length > 0 %}
+										{% for item in product.list_images.all %}
+										<div class="item-slick3" data-thumb='/{{ item.image }}'>
+														<div class="wrap-pic-w pos-relative">
+																<img src='/{{ item.image }}' alt="IMG-PRODUCT">
+																<a class="flex-c-m size-108 how-pos1 bor0 fs-16 cl10 bg0 hov-btn3 trans-04" href='/{{ item.image }}'>
+																		<i class="fa fa-expand"></i>
+																</a>
+														</div>
+												</div>
+										{% endfor %}
+										{% endif %}
 							</div>
 						</div>
 					</div>
@@ -76,9 +76,8 @@
 						
 						<!--  -->
 						<div class="p-t-33">
-                            <div class="message flex-m flex-m ml-20"></div>
-
-                            {% if sizes|length > 0 %}
+							<div class="message flex-m flex-m ml-20"></div>
+								{% if sizes|length > 0 %}
 							<div class="flex-w flex-r-m p-b-10">
 								<div class="size-203 flex-c-m respon6">
 									Size
@@ -87,36 +86,35 @@
 								<div class="size-204 respon6-next">
 									<div class="rs1-select2 bor8 bg0">
 										<select class="js-select2 js-select-size" name="time">
-                                            <option>Choose Size</option>
-                                            {% for size in sizes %}
-											    <option value="{{ size.id }}">Size {{ size.title }}</option>
-                                            {% endfor %}
+											<option>Choose Size</option>
+												{% for size in sizes %}
+											<option value="{{ size.id }}">Size {{ size.title }}</option>
+												{% endfor %}
 										</select>
 										<div class="dropDownSelect2"></div>
 									</div>
 								</div>
 							</div>
-                            {% endif %}
+								{% endif %}
 
-                            {% if color|length > 0 %}
+								{% if colors|length > 0 %}
 							<div class="flex-w flex-r-m p-b-10">
 								<div class="size-203 flex-c-m respon6">
 									Color
 								</div>
-
 								<div class="size-204 respon6-next">
 									<div class="rs1-select2 bor8 bg0">
 										<select class="js-select2 js-select-color" name="time">
-                                            <option >Choose Color</option>
-                                            {% for color in colors %}
-											    <option value="{{ color.id }}"> {{ color.title }}</option>
-                                            {% endfor %}
+											<option >Choose Color</option>
+											{% for color in colors %}
+												<option value="{{ color.id }}"> {{ color.title }}</option>
+											{% endfor %}
 										</select>
 										<div class="dropDownSelect2"></div>
 									</div>
 								</div>
 							</div>
-                            {% endif %}
+								{% endif %}
 
 							<div class="flex-w flex-r-m p-b-10">
 								<div class="size-204 flex-w flex-m respon6-next">
@@ -130,9 +128,9 @@
 										</div>
 									</div>
 
-                                    <div class="btn-add-cart flex-c-m stext-101 cl0 size-101 bg1 bor1 hov-btn1 p-lr-15 trans-04 js-addcart-detail" data-item-id="{{ product.id }}">
-                                        Add to cart
-                                    </div>
+										<div class="btn-add-cart flex-c-m stext-101 cl0 size-101 bg1 bor1 hov-btn1 p-lr-15 trans-04 js-addcart-detail" data-item-id="{{ product.id }}">
+												Add to cart
+										</div>
 								</div>
 
 							</div>	
@@ -440,7 +438,7 @@
             if (color && color > 0) {
                 Object.assign(data, {'color': color});
             }
-            const host = document.location.origin;
+            const host = window.location.origin;
             $.ajax({
                 type: 'GET',
                 url: `${host}/add-cart/id=${id}/quantity=${quantity}/`,
