@@ -2222,11 +2222,11 @@ input.num-product::-webkit-inner-spin-button {
 }
 
 .icon-heart-show {
-  opacity: 1;
+  opacity: 1 !important;
 }
 
 .icon-heart-hide {
-  opacity: 0;
+  opacity: 0 !important;
 }
 
 .btn-addwish-b2 .icon-heart2 {
