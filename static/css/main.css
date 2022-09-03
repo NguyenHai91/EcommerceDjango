@@ -126,6 +126,17 @@ Input, textarea : 14px/1.6 '', Arial, sans-serif;
   color: firebrick;
 }
 
+.success {
+  width: 100%;
+  min-height: 500px;
+  text-align: center;
+  padding: 100px 30px;
+}
+
+.thank {
+  color: #00ad5f;
+}
+
 /*------------------------------------------------------------------
 [ Slick2 ]*/
 .slick-slide {outline: none !important;}
@@ -2234,18 +2245,22 @@ input.num-product::-webkit-inner-spin-button {
 }
 
 .btn-addwish-b2:hover .icon-heart2 {
+  cursor: pointer;
   opacity: 1;
 }
 
 .btn-addwish-b2:hover .icon-heart1 {
+  cursor: pointer;
   opacity: 0;
 }
 
 .js-addedwish-b2 .icon-heart2 {
+  cursor: pointer;
   opacity: 1;
 }
 
 .js-addedwish-b2 .icon-heart1 {
+  cursor: pointer;
   opacity: 0;
 }
 

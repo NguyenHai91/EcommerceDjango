@@ -29,7 +29,6 @@ DEBUG = False
 # for api and set session
 ALLOWED_HOSTS = ['127.0.0.1', 'localhost', 'ecommerce-django-website.herokuapp.com']
 
-
 # Application definition
 
 INSTALLED_APPS = [
@@ -75,7 +74,6 @@ SIMPLE_JWT = {
     'JWT_ALLOW_REFRESH': True,
     'REFRESH_TOKEN_LIFETIME': timedelta(days=7),
 }
-
 
 CORS_ORIGIN_ALLOW_ALL = True
 CORS_ALLOW_CREDENTIALS = True
@@ -179,15 +177,14 @@ EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.2/howto/static-files/
 
-# CLOUDINARY_URL = 'cloudinary://446988924392248:U6OYTDlWY7-WbSo6GdCq-lerPUw@hopkwuhy0'
+STATICFILES_DIRS = (os.path.join(BASE_DIR, 'static'),)
 
 STATIC_URL = '/static/'
 if not DEBUG:
-  STATIC_ROOT = os.path.join(BASE_DIR, 'static/')
+  STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 
-STATICFILES_DIRS = (os.path.join(BASE_DIR, ''),)
 
-# STATICFILES_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
+
 
 MEDIA_URL = '/media/'
 
@@ -196,15 +193,6 @@ MEDIA_ROOT = 'media/'
 
 # MEDIA_ROOT = os.path.join(BASE_DIR, 'media/')
 
-# DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
-
-
-
-# CLOUDINARY_STORAGE = {
-#   'CLOUD_NAME': 'hopkwuhy0',
-#   'API_KEY': '446988924392248',
-#   'API_SECRET': 'U6OYTDlWY7-WbSo6GdCq-lerPUw',
-# }
 
 # Default primary key field type
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'

@@ -134,6 +134,8 @@ def update_cart(request, *args, **kwargs):
       data = {
         'status_code': 200,
         'num_cart': cart.num_item,
+        'amount': cart.amount,
+        'total_amount': cart.total_amount,
       }
       return JsonResponse(data)
 

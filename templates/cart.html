@@ -78,7 +78,7 @@
 							Cart Details
 						</h4>
 
-						<div class="flex-w flex-t bor12 p-b-13">
+						<div id="amount" class="amount flex-w flex-t bor12 p-b-13">
                             Amount: ${{ cart.amount }}
 						</div>
 
@@ -86,7 +86,7 @@
                             Tax: ${{ cart.tax_total }}
 						</div>
 
-						<div class="flex-w flex-t bor12 p-b-13">
+						<div id="total-amount" class="total-amount flex-w flex-t bor12 p-b-13">
                             Total Amount: ${{ cart.total_amount }}
 						</div>
 
@@ -109,8 +109,8 @@
             e.preventDefault();
             let id_item = $(this).attr('data-item');
             let csrftoken = $.cookie('csrftoken');
-
             const host = document.location.origin;
+
             $.ajax({
                 url: `${host}/cart/delete/id=${id_item}/`,
                 type: 'DELETE',

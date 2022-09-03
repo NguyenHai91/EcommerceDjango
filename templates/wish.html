@@ -65,8 +65,8 @@
             e.preventDefault();
             let id_item = $(this).attr('data-item');
             let csrftoken = $.cookie('csrftoken');
-
             const host = document.location.origin;
+
             $.ajax({
                 url: `${host}/wish/delete/id=${id_item}/`,
                 type: 'DELETE',

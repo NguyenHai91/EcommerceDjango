@@ -19,7 +19,7 @@ class CartManager(models.Manager):
         cart = self.model.objects.get(user__email=request.user, used=False)
         return cart, created
       elif cart_id is not None:
-        if self.model.objects.filter(id=cart_id, user=request.user, used=False).count() == 0:
+        if self.model.objects.filter(id=cart_id, user=request.user, used=False).count() == 1:
           cart = self.model.objects.get(id=cart_id)
           cart.user = request.user
           cart.save()

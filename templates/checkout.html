@@ -130,6 +130,7 @@
                         'address': address,
                     },
                     success: function (result) {
+                        localStorage.setItem('num-cart', result.num_cart);
                         window.location.href = 'http://127.0.0.1:8000/success/';
                     },
                     error: function (error, status) {

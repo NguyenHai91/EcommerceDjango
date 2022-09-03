@@ -302,6 +302,8 @@
                             input_quantity.val(numProduct);
                             localStorage.setItem('num-cart', result.num_cart);
                             $('.js-show-cart').attr('data-notify', result.num_cart);
+                            $('#amount').text(`Amount: ${result.amount}`);
+                            $('#total-amount').text(`Total Amount: ${result.total_amount}`);
                         }
 
                     }
@@ -339,6 +341,8 @@
                         input_quantity.val(numProduct);
                         localStorage.setItem('num-cart', result.num_cart);
                         $('.js-show-cart').attr('data-notify', result.num_cart);
+                        $('#amount').text(`Amount: ${result.amount}`);
+                        $('#total-amount').text(`Total Amount: ${result.total_amount}`);
                     }
                 }
             });
@@ -494,7 +498,9 @@
                         localStorage.setItem('num-wish', result.num_wish);
                     }
                 },
-                error: function(result) {}
+                error: function(result) {
+                    return;
+                }
             });
         }
 

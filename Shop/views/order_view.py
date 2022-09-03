@@ -117,17 +117,20 @@ def checkout(request):
       if order.id:
         for item in cart.cart_items.all():
           product = Product.objects.get(id=item.product_id)
-          if product.id:
+          if product.id and product.quantity >= item.quantity:
             product.quantity -= item.quantity
             product.sold += item.quantity
             product.save()
 
         cart.used = True
         cart.save()
+        cart, created = Cart.objects.get_existing_or_new(request)
+
         context = {
           'status_code': 200,
           'status': 'success',
           'message': 'Checkout completed success',
+          'num_cart': cart.num_item,
         }
         return JsonResponse(context)
 

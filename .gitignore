@@ -1,9 +1,10 @@
 
 venv/
 __pycache__/
+migrations/
 .idea/
 .DS_Store
 
 reactjs/
 db.sqlite3
-requirement.txt
+media/

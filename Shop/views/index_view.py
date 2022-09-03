@@ -49,12 +49,13 @@ def index(request, *args, **kwargs):
 
     products += accessories
 
-  wishlist, create = Wishlist.objects.get_wishlist_or_create(request)
-  wish_items = ItemWishlist.objects.filter(wishlist=wishlist)
+  wishlist, _ = Wishlist.objects.get_wishlist_or_create(request)
+  itemsWishlist = ItemWishlist.objects.filter(wishlist=wishlist)
+
   for product in products:
     product['is_added_wish'] = False
-    for item in wish_items:
-      if item.product_id == product.id:
+    for item in itemsWishlist:
+      if item.product_id == product['id']:
         product['is_added_wish'] = True
         break
 

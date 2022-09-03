@@ -66,9 +66,9 @@ class ProductManager(models.Manager):
 
 class Product(models.Model):
   category = models.ForeignKey(Category, on_delete=models.CASCADE)
-  sizes = models.ManyToManyField(Size, null=True, blank=True)
-  colors = models.ManyToManyField(Color, null=True, blank=True)
-  image = models.ImageField(upload_to='static/images/', null=True)
+  sizes = models.ManyToManyField(Size, blank=True)
+  colors = models.ManyToManyField(Color, blank=True)
+  image = models.ImageField(upload_to='static/images/', null=True, blank=True)
   title = models.CharField(max_length=120)
   slug = models.SlugField(blank=True, unique=True)
   active = models.BooleanField(default=True)
