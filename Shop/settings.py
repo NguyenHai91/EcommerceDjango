@@ -102,14 +102,15 @@ WSGI_APPLICATION = 'Shop.wsgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
-
-# DATABASES = {
-#   'default': {
-#     'ENGINE': 'django.db.backends.sqlite3',
-#     'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+# if DEBUG:
+#   # sqlite3
+#   DATABASES = {
+#     'default': {
+#       'ENGINE': 'django.db.backends.sqlite3',
+#       'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+#     }
 #   }
-# }
-
+# else:
 # Postgresql
 DATABASES = {
   'default': {
@@ -177,11 +178,11 @@ EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.2/howto/static-files/
 
-STATICFILES_DIRS = (os.path.join(BASE_DIR, 'static'),)
+STATICFILES_DIRS = (os.path.join(BASE_DIR, ''),)
 
 STATIC_URL = '/static/'
 if not DEBUG:
-  STATIC_ROOT = os.path.join(BASE_DIR, '')
+  STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 
 
 
@@ -197,3 +198,5 @@ MEDIA_ROOT = 'media/'
 # Default primary key field type
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
+# number item on page
+NUM_ITEM = 4

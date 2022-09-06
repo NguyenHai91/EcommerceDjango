@@ -116,7 +116,7 @@ class ProfileUserManager(models.Manager):
 
 
 class ProfileUser(models.Model):
-  user = models.OneToOneField(MyUser, related_name='profile_user', on_delete=models.CASCADE)
+  user = models.OneToOneField(MyUser, related_name='profile', on_delete=models.CASCADE)
   first_name = models.CharField(max_length=200)
   last_name = models.CharField(max_length=200)
   avatar = models.ImageField(upload_to='static/user/', null=True)

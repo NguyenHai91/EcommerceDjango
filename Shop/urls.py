@@ -35,23 +35,29 @@ urlpatterns = [
     # template
     path('', index_view.index),
     path('search/', index_view.search),
+    path('view-more/page=<page>/', index_view.get_products_of_page),
+    path('blog/', index_view.blog),
+    path('about/', index_view.about),
+    path('contact/', index_view.contact),
+
     path('products/category=<category>/', product_view.product_with_category),
     path('product/detail/id=<int:id>/', product_view.product_detail),
     path('product/id=<int:id>/', product_view.product), # ajax request product
     path('features/', product_view.product_features),
-    path('blog/', index_view.blog),
-    path('about/', index_view.about),
-    path('contact/', index_view.contact),
+
     re_path(r'^login(.*?)$', user_view.login_user),
     path('logout/', user_view.logout_user),
     path('register/', user_view.register),
+
     path('cart/', cart_view.cart),
     path('add-cart/id=<id>/quantity=<int:quantity>/', cart_view.add_cart),
     path('cart/delete/id=<id>/', cart_view.delete_item),
     path('cart/update/id_item=<id>/', cart_view.update_cart),
+
     path('wish/', wish_view.wishlist),
     path('wish/add/id=<id_product>/', wish_view.add_wish),
     path('wish/delete/id=<id_item>/', wish_view.delete_wish),
+
     path('order/', order_view.order, name='order'),
     path('checkout/', order_view.checkout),
     path('success/', order_view.success, name='success'),
