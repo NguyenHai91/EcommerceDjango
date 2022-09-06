@@ -8,17 +8,18 @@ from products.models import Product
 
 
 def product_with_category(request, category, *args, **kwargs):
-  title_category = str(category).lower()
-  category = Category.objects.filter(title__iexact=title_category).first()
-  sub_categories = Category.objects.filter(parent=category)
-
+  title_category = str(category)
   products = []
-  products  += Product.objects.filter(category=category, quantity__gt=0)[:12].values()
+  list_categories = []
+  root_categories = Category.objects.filter(title__iexact=title_category)
+  list_categories += root_categories
+  if len(root_categories) > 0:
+    for item in root_categories:
+      sub_categories = Category.objects.filter(parent=item.id)
+      list_categories += sub_categories
 
-  for item in sub_categories:
-    products_in_category = Product.objects.filter(category=item, quantity__gt=0)[:12].values()
-    if products_in_category:
-      products += products_in_category
+  for item in list_categories:
+    products += Product.objects.filter(category=item, quantity__gt=0)[:4].values()
 
   context = {
     'products': products,
