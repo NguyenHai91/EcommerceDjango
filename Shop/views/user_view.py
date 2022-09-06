@@ -1,9 +1,11 @@
 
+import os.path
 from django.shortcuts import render
 from django.http import JsonResponse
 from django.contrib.auth import authenticate, login, logout, get_user_model
 from django.views.decorators.csrf import csrf_exempt
 from django.core.mail import send_mail
+from PIL import Image
 
 from cart.models import Cart
 from wishlist.models import Wishlist
@@ -25,6 +27,8 @@ def register(request):
     birth = request.POST.get('birth', None)
     gender = request.POST.get('gender', None)
     city = request.POST.get('city', None)
+    district = request.POST.get('district', None)
+    ward = request.POST.get('ward', None)
     address = request.POST.get('address', None)
     password = request.POST.get('password', None)
     re_password = request.POST.get('re-password', None)
@@ -45,6 +49,9 @@ def register(request):
       }
       return JsonResponse(data)
 
+    if not avatar or not os.path.isfile(avatar) or not os.path.exists(avatar):
+      avatar = None
+
     user = User.objects.create_user(
       username=username,
       password=password,
@@ -59,6 +66,8 @@ def register(request):
         phone=phone,
         gender=gender,
         city=city,
+        district=district,
+        ward=ward,
         address=address
       )
       if profile_user.id:

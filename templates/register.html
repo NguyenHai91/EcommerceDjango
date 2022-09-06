@@ -33,10 +33,10 @@
                 <div class="form-outline mt-2">
                     <div class="form-control">
                         <label>Gender</label>
-                        <select class="form-control  select-gender">
+                        <select class="form-control"  name="select-gender">
                             <option value="0">Male</option>
                             <option value="1">Female</option>
-                            <option value="2">Undefined</option>
+                            <option value="2">Unisex</option>
                         </select>
                     </div>
                 </div>
@@ -48,6 +48,12 @@
                 </div>
                 <div class="form-outline mt-2">
                     <input class="form-control city" type="text" name="city" placeholder="city" />
+                </div>
+                <div class="form-outline mt-2">
+                    <input class="form-control district" type="text" name="district" placeholder="district" />
+                </div>
+                <div class="form-outline mt-2">
+                    <input class="form-control ward" type="text" name="ward" placeholder="ward" />
                 </div>
                 <div class="form-outline mt-2">
                     <input class="form-control address" type="text" name="address" placeholder="address" />
@@ -85,22 +91,25 @@
     <script>
         $('.btn-register').on('click', function (e) {
             e.preventDefault();
-            let firstName = $('.first-name').val();
-            let lastName = $('.last-name').val();
-            let email = $('.email').val();
-            let birth = $('.birth').val();
-            let gender = $('.select-gender').val();
+            let firstName = $("input[name='first-name']").val();
+            let lastName = $("input[name='last-name']").val();
+            let email = $("input[name='email']").val();
+            let birth = $("input[name='birth']").val();
+            let gender = $("select[name='select-gender']").val();
 
-            let city = $('.city').val();
-            let address = $('.address').val();
-            let phone = $('.phone').val();
-            let password = $('.password').val();
-            let rePassword = $('.re-password').val();
+            let city = $("input[name='city']").val();
+            let district = $("input[name='district']").val();
+            let ward = $("input[name='ward']").val();
+            let address = $("input[name='address']").val();
+            let phone = $("input[name='phone']").val();
+            let password = $("input[name='password']").val();
+            let rePassword = $("input[name='re-password']").val();
             let terms = $('input[name="terms"]').is(':checked');
             let csrftoken = $('input[name="csrfmiddlewaretoken"]').val();
             let message = $('.message-form');
             let fileReader = new FileReader();
             let avatar = $('.avatar').get(0).files[0];
+            if (!avatar || avatar === undefined) avatar = '';
 
             if (!firstName) {
                 message.text('* First name is not empty!');
@@ -147,6 +156,8 @@
             formData.append('avatar', avatar);
             formData.append('phone', phone);
             formData.append('city', city);
+            formData.append('district', district);
+            formData.append('ward', ward);
             formData.append('address', address);
             formData.append('password', password);
             formData.append('re-password', rePassword);

@@ -37,7 +37,7 @@ class CheckoutView(APIView):
 
     return Response({
       "order": DetailedOrderSerializer(order_obj, context={'request': request}).data,
-      "secret": intent.client_secret
+      "secret": 'intent.client_secret',
     })
 
   def post(self, request, *args, **kwargs):

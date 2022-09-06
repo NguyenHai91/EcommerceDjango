@@ -89,7 +89,10 @@ GENDER = [
 ]
 
 class ProfileUserManager(models.Manager):
-  def create_profileuser(self, user, first_name, last_name, gender, avatar=None, phone=None, city=None, address=None):
+  def create_profileuser(self, user, first_name,
+                         last_name, gender, avatar=None,
+                         phone=None, city=None, district=None,
+                         ward=None, address=None):
     if not user:
       raise ValueError('Profile user must have an user')
     if not first_name:
@@ -104,13 +107,17 @@ class ProfileUserManager(models.Manager):
       first_name=first_name,
       last_name=last_name,
       phone=phone,
-      avatar=upload_name_path(self, avatar.name, 'user'),
       gender=gender,
       city=city,
+      district=district,
+      ward=ward,
       address=address
     )
-    file_system_storage = FileSystemStorage()
-    file_system_storage.save(profile_user.avatar, avatar)
+    if avatar is not None:
+      profile_user.avatar = upload_name_path(self, avatar.name, 'user')
+      file_system_storage = FileSystemStorage()
+      file_system_storage.save(profile_user.avatar, avatar)
+
     profile_user.save(using=self._db)
     return profile_user
 
@@ -119,10 +126,12 @@ class ProfileUser(models.Model):
   user = models.OneToOneField(MyUser, related_name='profile', on_delete=models.CASCADE)
   first_name = models.CharField(max_length=200)
   last_name = models.CharField(max_length=200)
-  avatar = models.ImageField(upload_to='static/user/', null=True)
+  avatar = models.ImageField(upload_to='static/user/', null=True, blank=True)
   phone = models.CharField(max_length=200, null=True, blank=True)
   gender = models.SmallIntegerField(choices=GENDER, default=GENDER_MALE)
-  city = models.CharField(max_length=250, null=True, blank=True)
+  city = models.CharField(max_length=150, null=True, blank=True)
+  district = models.CharField(max_length=150, null=True, blank=True)
+  ward = models.CharField(max_length=150, null=True, blank=True)
   address = models.CharField(max_length=250, null=True, blank=True)
 
   objects = ProfileUserManager()
