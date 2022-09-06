@@ -77,8 +77,6 @@ SIMPLE_JWT = {
 
 CORS_ORIGIN_ALLOW_ALL = True
 CORS_ALLOW_CREDENTIALS = True
-# CORS_ALLOWED_ORIGINS = ['http://localhost:8000', 'http://127.0.0.1:8000']
-# CSRF_TRUSTED_ORIGINS = ['http://localhost:8000',  'http://127.0.0.1:8000']
 
 TEMPLATES = [
   {
@@ -111,7 +109,7 @@ if DEBUG:
     }
   }
 else:
-# Postgresql
+  # Postgresql
   DATABASES = {
     'default': {
       'ENGINE': 'django.db.backends.postgresql',
@@ -178,12 +176,16 @@ EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.2/howto/static-files/
 
-STATICFILES_DIRS = (os.path.join(BASE_DIR, ''),)
+
 
 STATIC_URL = '/static/'
 if not DEBUG:
   STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 
+if DEBUG:
+  STATICFILES_DIRS = (os.path.join(BASE_DIR, 'static'),)    # for local
+else:
+  STATICFILES_DIRS = (os.path.join(BASE_DIR, ''),)   # for deploy server
 
 
 

@@ -78,7 +78,7 @@ def product(request, id, *args, **kwargs):
 
 
 def product_features(request, *args, **kwargs):
-  product_features = Product.objects.filter(featured=True, active=True)[:12]
+  product_features = Product.objects.filter(featured=True, active=True).order_by('-views')[:12]
 
   context = {
     'products': product_features,
