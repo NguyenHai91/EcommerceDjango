@@ -1,5 +1,3 @@
-from os import path
-from random import randint
 
 from ckeditor.fields import RichTextField
 from django.db import models
@@ -7,17 +5,12 @@ from django.db.models import Q
 from django.db.models.signals import pre_save
 from django.urls import reverse
 
-from Shop.settings import MEDIA_URL, STATIC_URL
+from Shop.settings import STATIC_URL
 from Shop.utils import unique_slug_generator, get_filename_ext, upload_name_path
 from category.models import Category
+from users.models import Gender
 
 
-
-GENDER_CHOICES = (
-  (0, 'male'),
-  (1, 'female'),
-  (2, 'unisex')
-)
 
 class Color(models.Model):
   title = models.CharField(max_length=50)
@@ -72,7 +65,7 @@ class Product(models.Model):
   title = models.CharField(max_length=120)
   slug = models.SlugField(blank=True, unique=True)
   active = models.BooleanField(default=True)
-  gender = models.SmallIntegerField(choices = GENDER_CHOICES, default=2)
+  gender = models.SmallIntegerField(choices=Gender.choices, default=Gender.UNISEX)
   featured = models.BooleanField(default=False)
   description = RichTextField()
   original_price = models.DecimalField(max_digits=10, decimal_places=2, blank=True, null=True)
@@ -87,6 +80,10 @@ class Product(models.Model):
 
   class Meta:
     ordering = ('-timestamp',)
+    indexes = [
+      models.Index(fields=['-id', 'title']),
+      models.Index(fields=['title'], name='title_idx')
+    ]
 
   def __str__(self):
     return self.title
@@ -112,11 +109,23 @@ class Product(models.Model):
   def get_absolute_image_url(self):
     return f'{STATIC_URL}{self.image.url}'
 
-def product_pre_save_receiver(sender, instance, *args, **kwargs):
-  if not instance.slug:
-    instance.slug = unique_slug_generator(instance)
+  def save(self, request=False, *args, **kwargs):
+    if not self.slug:
+      self.slug = unique_slug_generator(self)
+    # if request and request.FILES.getlist('image', False):
+    #   list_images = request.FILES.getlist('image')
+    #   if len(list_images) > 0:
+    #     self.image = list_images[0]
+    #     for img in list_images[1:]:
+    #       image = ImageProduct(product=self, image=img)
+    #       image.save()
+    super().save(*args, **kwargs)
 
-pre_save.connect(product_pre_save_receiver, sender=Product)
+# def product_pre_save_receiver(sender, instance, *args, **kwargs):
+#   if not instance.slug:
+#     instance.slug = unique_slug_generator(instance)
+#
+# pre_save.connect(product_pre_save_receiver, sender=Product)
 
 
 class ImageProduct(models.Model):
@@ -147,11 +156,15 @@ class Tag(models.Model):
   def __str__(self):
     return self.title
 
+  def save(self, *args, **kwargs):
+    if self.slug is None:
+      self.slug = unique_slug_generator(self)
+    super().save(*args, **kwargs)
 
-def tag_pre_save_receiver(sender, instance, *args, **kwargs):
-  if not instance.slug:
-    instance.slug = unique_slug_generator(instance)
 
-
-pre_save.connect(tag_pre_save_receiver, sender=Tag)
+# def tag_pre_save_receiver(sender, instance, *args, **kwargs):
+#   if not instance.slug:
+#     instance.slug = unique_slug_generator(instance)
+#
+# pre_save.connect(tag_pre_save_receiver, sender=Tag)
 

@@ -191,7 +191,7 @@ else:
 
 MEDIA_URL = '/media/'
 
-MEDIA_ROOT = 'media/'
+MEDIA_ROOT = ''
 # for api reactjs
 
 # MEDIA_ROOT = os.path.join(BASE_DIR, 'media/')

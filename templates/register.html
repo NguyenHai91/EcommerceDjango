@@ -108,7 +108,7 @@
             let csrftoken = $('input[name="csrfmiddlewaretoken"]').val();
             let message = $('.message-form');
             let fileReader = new FileReader();
-            let avatar = $('.avatar').get(0).files[0];
+            let avatar = $("input[name='avatar']").get(0).files[0];
             if (!avatar || avatar === undefined) avatar = '';
 
             if (!firstName) {

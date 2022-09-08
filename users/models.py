@@ -4,13 +4,20 @@ from django.db import models
 from django.core.files.storage import default_storage, FileSystemStorage
 from Shop.settings import STATIC_URL
 
-from Shop.utils import unique_slug_generator, upload_name_path
+from Shop.utils import upload_name_path
 
 
-ROLL_ADMIN = 0
-ROLL_STAFF = 1
-ROLL_CUSTOMER = 2
-ROLL = [(ROLL_ADMIN, 'admin'), (ROLL_STAFF, 'staff'), (ROLL_CUSTOMER, 'customer')]
+class Gender(models.IntegerChoices):
+  MALE = 0
+  FEMALE = 1
+  UNISEX = 2
+
+
+class Roll(models.IntegerChoices):
+  ADMIN = 0
+  STAFF = 1
+  CUSTOMER = 2
+
 
 class MyUserManager(BaseUserManager):
   def create_user(self, email, password, roll=None, username=None):
@@ -23,7 +30,7 @@ class MyUserManager(BaseUserManager):
     if re.fullmatch('^[a-z0-9.@#$%^&*-+~!]{4,}$', password) is False:
       raise ValueError('Sorry, Invalid password')
     if roll is None:
-      roll = ROLL_CUSTOMER
+      roll = Roll.CUSTOMER
 
     email = self.normalize_email(email)
     user = self.model(email=email, username=username)
@@ -34,22 +41,24 @@ class MyUserManager(BaseUserManager):
     return user
 
   def create_superuser(self, email, password, username=None):
-    user = self.create_user(email=email, password=password, roll=ROLL_ADMIN, username=username)
+    user = self.create_user(email=email, password=password, roll=Roll.ADMIN, username=username)
     return user
-
 
 
 class MyUser(AbstractBaseUser):
   username = models.CharField(max_length=200, unique=True, null=True, blank=True)
   email = models.EmailField(unique=True)
   password = models.CharField(max_length=250)
-  roll = models.SmallIntegerField(choices=ROLL, default=ROLL_CUSTOMER)
+  roll = models.SmallIntegerField(choices=Roll.choices, default=Roll.CUSTOMER)
   active = models.BooleanField(default=True)
   last_login = models.DateTimeField(auto_now=True)
   created_date = models.DateTimeField(auto_now_add=True)
   updated_date = models.DateTimeField(auto_now=True)
 
   objects = MyUserManager()
+
+  class Meta:
+    ordering = ['-created_date', '-updated_date']
 
   USERNAME_FIELD = 'email'
   REQUIRED_FIELDS = []
@@ -63,14 +72,14 @@ class MyUser(AbstractBaseUser):
 
   @property
   def is_staff(self):
-    if self.roll == ROLL_STAFF or self.roll == ROLL_ADMIN:
+    if self.roll == Roll.STAFF or self.roll == Roll.ADMIN:
       return True
 
     return False
 
   @property
   def is_admin(self):
-    return self.roll == ROLL_ADMIN
+    return self.roll == Roll.ADMIN
 
   def has_perm(self, perm, obj=None):
     return True
@@ -78,15 +87,6 @@ class MyUser(AbstractBaseUser):
   def has_module_perms(self, app_label):
     return True
 
-
-GENDER_MALE = 0
-GENDER_FEMALE = 1
-GENDER_UNISEX  = 2
-GENDER = [
-  (GENDER_MALE, 'Male'),
-  (GENDER_FEMALE, 'Female'),
-  (GENDER_UNISEX, 'Unisex'),
-]
 
 class ProfileUserManager(models.Manager):
   def create_profileuser(self, user, first_name,
@@ -100,7 +100,7 @@ class ProfileUserManager(models.Manager):
     if not last_name:
       raise ValueError('Profile user must have an last_name')
     if not gender:
-      gender = GENDER_MALE
+      gender = Gender.MALE
 
     profile_user = self.model(
       user=user,
@@ -128,7 +128,7 @@ class ProfileUser(models.Model):
   last_name = models.CharField(max_length=200)
   avatar = models.ImageField(upload_to='static/user/', null=True, blank=True)
   phone = models.CharField(max_length=200, null=True, blank=True)
-  gender = models.SmallIntegerField(choices=GENDER, default=GENDER_MALE)
+  gender = models.SmallIntegerField(choices=Gender.choices, default=Gender.MALE)
   city = models.CharField(max_length=150, null=True, blank=True)
   district = models.CharField(max_length=150, null=True, blank=True)
   ward = models.CharField(max_length=150, null=True, blank=True)
@@ -140,7 +140,5 @@ class ProfileUser(models.Model):
     return self.user.email
 
   @property
-  def get_absolute_image_url(self):
-    return f'{STATIC_URL}{self.image.url}'
-
-
+  def get_absolute_avatar_url(self):
+    return f'{STATIC_URL}{self.avatar.url}'
